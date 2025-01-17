@@ -61,7 +61,7 @@ Variable names shall start with "UserApp1_<type>" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type UserApp1_pfStateMachine;               /*!< @brief The state machine function pointer */
 //static u32 UserApp1_u32Timeout;                           /*!< @brief Timeout counter used across states */
-
+extern const u8 aau8TestPosition[U8_LCD_IMAGE_ROW_SIZE_50PX][U8_LCD_IMAGE_COL_BYTES_50PX];
 
 /**********************************************************************************************************************
 Function Definitions
@@ -102,6 +102,14 @@ void UserApp1Initialize(void)
     /* The task isn't properly initialized, so shut it down and don't run */
     UserApp1_pfStateMachine = UserApp1SM_Error;
   }
+LcdClearScreen();
+PixelBlockType sTestImage;
+sTestImage.u16RowStart = 0;
+sTestImage.u16ColumnStart = 0;
+sTestImage.u16RowSize = 50;
+sTestImage.u16ColumnSize = 50;
+LcdLoadBitmap(&aau8TestPosition[0][0], &sTestImage);
+
 
 } /* end UserApp1Initialize() */
 
@@ -124,7 +132,7 @@ Promises:
 void UserApp1RunActiveState(void)
 {
   UserApp1_pfStateMachine();
-
+  
 } /* end UserApp1RunActiveState */
 
 
@@ -140,7 +148,7 @@ State Machine Function Definitions
 /* What does this state do? */
 static void UserApp1SM_Idle(void)
 {
-     
+
 } /* end UserApp1SM_Idle() */
      
 
